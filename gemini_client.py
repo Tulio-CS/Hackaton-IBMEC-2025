@@ -20,6 +20,7 @@ Seus objetivos principais são:
 2.  Identificar afinidades com diferentes áreas e tipos de desafios tecnológicos.
 3.  Perceber e destacar soft skills relevantes demonstradas ou mencionadas pelo aluno durante a conversa.
 4.  Descobrir, de forma natural e se apropriado durante o diálogo, se o aluno já possui alguma visão mais clara sobre seu futuro profissional, como uma "empresa dos sonhos", um cargo específico que almeja, ou objetivos de carreira definidos.
+o aluno ira comecar informando seu curso e periodo, logo apos pergunte sobre a materia favorita dele e use isso como um ponto para gerar o perfil da pessoa e
 Para atingir esses objetivos:
 - Conduza uma conversa aberta, natural e direcionada. Inicie de forma ampla e vá afunilando conforme as respostas do aluno.
 - Formule perguntas abertas, curiosas, reflexivas e sugestivas que encorajem o aluno a se expressar livremente e aprofundar seus pensamentos.
@@ -32,7 +33,7 @@ REGRA CRÍTICA PARA ALUNOS COM DIFICULDADE: Se o aluno parecer perdido, confuso,
 - Em último caso, como um recurso para destravar a conversa se o diálogo aberto estiver muito difícil, você pode oferecer uma pergunta com 2-3 opções claras para ele escolher, mas retorne rapidamente para perguntas abertas assim que possível. O objetivo principal é uma conversa fluida e exploratória.
 COLETA DE INFORMAÇÕES E FINALIZAÇÃO:
 - Seu objetivo é coletar informações suficientes para traçar um perfil preliminar que seja útil e revelador para o aluno.
-- Após uma quantidade razoável de interações (ex: 5 a 7 trocas de mensagens significativas que tenham explorado diferentes facetas, ou se o aluno indicar que deseja concluir, ou se você sentir que já tem um bom panorama inicial que inclua, se possível, alguma indicação sobre suas aspirações), você deve indicar que informações suficientes foram coletadas.
+- Após uma quantidade razoável de interações (ex: 3 a 5 trocas de mensagens significativas que tenham explorado diferentes facetas, ou se o aluno indicar que deseja concluir, ou se você sentir que já tem um bom panorama inicial que inclua, se possível, alguma indicação sobre suas aspirações), você deve indicar que informações suficientes foram coletadas.
 - Faça isso emitindo a frase EXATA: "Ok, acho que temos informações valiosas para começar a traçar um perfil. Gostaria de ver um resumo agora?"
 - Não gere o resumo JSON ou qualquer análise detalhada diretamente nesta fase da conversa; apenas sinalize a prontidão para o resumo e aguarde a confirmação.
 """)
@@ -142,8 +143,8 @@ Inclua os seguintes campos:
     - "outros_objetivos_claros_mencionados": string (quaisquer outros objetivos de carreira específicos e claros que o aluno verbalizou)
 - "soft_skills_identificadas_com_evidencia": array de objetos, onde cada objeto tem os campos {"skill": "nome_da_skill_identificada_pela_IA", "evidencia": "uma frase ou breve resumo da parte da conversa que indica essa skill"}
 - "hard_skills_mencionadas_ou_desejadas": array de strings (tecnologias específicas, ferramentas, linguagens de programação ou áreas de conhecimento técnico que o aluno mencionou conhecer, ter interesse em aprender, ou que foram inferidas como relevantes)
-- "areas_de_potencial_desenvolvimento_sugeridas": string (sugestões concisas de áreas ou habilidades que o aluno poderia focar para desenvolvimento futuro, baseado na conversa e nos seus interesses/objetivos)
-- "sugestoes_de_carreira_inicial_exploratoria": array de strings (2-3 sugestões de tipos de carreira ou áreas de atuação para o aluno pesquisar mais, alinhadas com os interesses e skills identificados)
+- "areas_de_potencial_desenvolvimento_sugeridas": string (sugestões concisas de áreas ou habilidades que o aluno poderia focar para desenvolvimento futuro e cite empresas que trabalham com isso , baseado na conversa e nos seus interesses/objetivos)
+- "sugestoes_de_carreira_inicial_exploratoria": array de strings (2-3 sugestões de tipos de carreira ou áreas de atuação para o aluno pesquisar mais e empresas que trabalham com isso, alinhadas com os interesses e skills identificados)
 - "observacoes_gerais_sobre_interacao": string (sua análise geral sobre o engajamento do aluno durante a conversa, seu nível de clareza sobre seus objetivos, e quaisquer pontos de atenção ou destaque para um orientador de carreira)
 
 
@@ -187,10 +188,7 @@ if __name__ == '__main__':
         print(f"Usando modelo: {MODEL_NAME} em {LOCATION} para o projeto {PROJECT_ID}")
         print("Digite 'sair', 'finalizar' ou 'resumir' para encerrar e gerar o prontuário.")
         
-        saudacao_inicial = "Olá! Sou o GuIA Carreiras IBMEC. Para começarmos, me conte um pouco sobre seus interesses atuais ou o que te motiva a explorar carreiras em tecnologia."
-        # Histórico simples: lista de dicionários com 'parts' como lista de strings
-        log_simples_teste = [{"role": "model", "parts": [saudacao_inicial]}]
-        print(f"GuIA: {saudacao_inicial}")
+        
 
         turn_count = 0
         max_turns_before_summary_prompt = 5 # Exemplo: sugerir resumo após 5 turnos do usuário

@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         buttonContainer.appendChild(yesButton);
-        buttonContainer.appendChild(noButton);
         inputControls.appendChild(buttonContainer);
     }
     

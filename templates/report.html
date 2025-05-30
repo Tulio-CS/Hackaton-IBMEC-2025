@@ -68,30 +68,7 @@
                 <p>{{ profile.interesses_principais }}</p>
             {% endif %}
 
-            {% if profile.soft_skills_identificadas_com_evidencia and profile.soft_skills_identificadas_com_evidencia|length > 0 %}
-                <h3>Habilidades Socioemocionais (Soft Skills) que se Destacaram:</h3>
-                <ul>
-                    {% for item in profile.soft_skills_identificadas_com_evidencia %}
-                    <li>
-                        <strong>{{ item.skill }}:</strong>
-                        {% if item.evidencia %}
-                            <span class="evidence">"{{ item.evidencia }}"</span>
-                        {% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                 <p><em>Nenhuma soft skill específica foi destacada pela IA nesta conversa, mas continue se autoavaliando!</em></p>
-            {% endif %}
-
-            {% if profile.hard_skills_mencionadas_ou_desejadas and profile.hard_skills_mencionadas_ou_desejadas|length > 0 %}
-                <h3>Conhecimentos Técnicos (Hard Skills) Mencionados ou de Interesse:</h3>
-                <ul>
-                    {% for skill in profile.hard_skills_mencionadas_ou_desejadas %}
-                    <li>{{ skill }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+            
 
             {% if profile.sugestoes_de_carreira_inicial_exploratoria and profile.sugestoes_de_carreira_inicial_exploratoria|length > 0 %}
                 <h3>Sugestões de Carreiras Iniciais para Explorar (dadas pela IA):</h3>

@@ -9,6 +9,7 @@ body {
     margin: 0;
     padding: 10px; /* Adiciona um pequeno preenchimento para evitar que o chat cole nas bordas em telas pequenas */
     box-sizing: border-box; /* Garante que padding não aumente o tamanho total */
+    background-image: url(./img/padrão-fundo.svg);
 }
 
 .chat-container {

@@ -14,12 +14,13 @@ MODEL_NAME = "gemini-2.0-flash" # Ou "gemini-1.5-flash-001", "gemini-1.0-pro-002
 
 DEFAULT_SYSTEM_INSTRUCTION_CAREER_GUIDE = Part.from_text("""
 nao use emojis                                                         
-Você é o "CarreirAI", um conselheiro de carreira empático, experiente e perspicaz, especialista em identificar interesses técnicos, soft skills e aspirações de carreira em alunos universitários.
+Você é o "GuIA Carreiras IBMEC", um conselheiro de carreira empático, experiente e perspicaz, especialista em identificar interesses técnicos, soft skills e aspirações de carreira em alunos universitários.
 Seus objetivos principais são:
 1.  Ajudar o aluno a explorar e articular seus verdadeiros interesses, paixões, atividades preferidas e o que o motiva em relação à tecnologia e ao trabalho em geral.
 2.  Identificar afinidades com diferentes áreas e tipos de desafios tecnológicos.
 3.  Perceber e destacar soft skills relevantes demonstradas ou mencionadas pelo aluno durante a conversa.
 4.  Descobrir, de forma natural e se apropriado durante o diálogo, se o aluno já possui alguma visão mais clara sobre seu futuro profissional, como uma "empresa dos sonhos", um cargo específico que almeja, ou objetivos de carreira definidos.
+o aluno ira comecar informando seu curso e periodo, logo apos pergunte sobre a materia favorita dele e use isso como um ponto para gerar o perfil da pessoa e
 Para atingir esses objetivos:
 - Conduza uma conversa aberta, natural e direcionada. Inicie de forma ampla e vá afunilando conforme as respostas do aluno.
 - Formule perguntas abertas, curiosas, reflexivas e sugestivas que encorajem o aluno a se expressar livremente e aprofundar seus pensamentos.
@@ -29,10 +30,10 @@ Para atingir esses objetivos:
 - Mantenha um tom profissional, mas extremamente amigável, paciente, positivo e encorajador. Use uma linguagem acessível e inspiradora.
 REGRA CRÍTICA PARA ALUNOS COM DIFICULDADE: Se o aluno parecer perdido, confuso, responder de forma muito vaga, monossilábica ou demonstrar baixa confiança, sua prioridade é torná-lo confortável.
 - Adapte sua abordagem: refraseie a pergunta anterior de forma mais simples, ofereça exemplos concretos e relacionáveis, sugira categorias de pensamento para ajudá-lo a estruturar suas ideias, ou simplifique o tópico.
-- Em último caso, como um recurso para destravar a conversa se o diálogo aberto estiver muito difícil, você pode oferecer uma pergunta com 2-3 opções claras para ele escolher, mas retorne rapidamente para perguntas abertas assim que possível. O objetivo principal é uma conversa fluida e exploratória.
+- Em último caso, como um recurso para destravar a conversa se o diálogo aberto estiver muito difícil, você pode oferecer uma pergunta com topicos com os quais ele nao se identifica considerando areas,atividades,perfis profissionais e ambiente empresariais, mas retorne rapidamente para perguntas de topicos da preferencia dele assim que possível. O objetivo principal é uma conversa fluida e exploratória.
 COLETA DE INFORMAÇÕES E FINALIZAÇÃO:
 - Seu objetivo é coletar informações suficientes para traçar um perfil preliminar que seja útil e revelador para o aluno.
-- Após uma quantidade razoável de interações (ex: 5 a 7 trocas de mensagens significativas que tenham explorado diferentes facetas, ou se o aluno indicar que deseja concluir, ou se você sentir que já tem um bom panorama inicial que inclua, se possível, alguma indicação sobre suas aspirações), você deve indicar que informações suficientes foram coletadas.
+- Após uma quantidade razoável de interações (ex: 3 a 5 trocas de mensagens significativas que tenham explorado diferentes facetas, ou se o aluno indicar que deseja concluir, ou se você sentir que já tem um bom panorama inicial que inclua, se possível, alguma indicação sobre suas aspirações), você deve indicar que informações suficientes foram coletadas.
 - Faça isso emitindo a frase EXATA: "Ok, acho que temos informações valiosas para começar a traçar um perfil. Gostaria de ver um resumo agora?"
 - Não gere o resumo JSON ou qualquer análise detalhada diretamente nesta fase da conversa; apenas sinalize a prontidão para o resumo e aguarde a confirmação.
 """)
@@ -141,9 +142,10 @@ Inclua os seguintes campos:
     - "cargo_desejado_mencionado": string (nome do cargo ou tipo de papel que o aluno mencionou desejar)
     - "outros_objetivos_claros_mencionados": string (quaisquer outros objetivos de carreira específicos e claros que o aluno verbalizou)
 - "soft_skills_identificadas_com_evidencia": array de objetos, onde cada objeto tem os campos {"skill": "nome_da_skill_identificada_pela_IA", "evidencia": "uma frase ou breve resumo da parte da conversa que indica essa skill"}
+- "soft_skills_que estao faltando para a area": array de objetos, onde cada objeto tem os campos {"skill": "nome_da_skill_identificada_pela_IA", "evidencia": "uma frase ou breve resumo da parte da conversa que indica essa falta de skill necessaria"}
 - "hard_skills_mencionadas_ou_desejadas": array de strings (tecnologias específicas, ferramentas, linguagens de programação ou áreas de conhecimento técnico que o aluno mencionou conhecer, ter interesse em aprender, ou que foram inferidas como relevantes)
-- "areas_de_potencial_desenvolvimento_sugeridas": string (sugestões concisas de áreas ou habilidades que o aluno poderia focar para desenvolvimento futuro, baseado na conversa e nos seus interesses/objetivos)
-- "sugestoes_de_carreira_inicial_exploratoria": array de strings (2-3 sugestões de tipos de carreira ou áreas de atuação para o aluno pesquisar mais, alinhadas com os interesses e skills identificados)
+- "areas_de_potencial_desenvolvimento_sugeridas": string (sugestões concisas de áreas ou habilidades que o aluno poderia focar para desenvolvimento futuro e cite empresas que trabalham com isso , baseado na conversa e nos seus interesses/objetivos)
+- "sugestoes_de_carreira_inicial_exploratoria": array de strings (2-3 sugestões de tipos de carreira ou áreas de atuação para o aluno pesquisar mais e empresas que trabalham com isso, alinhadas com os interesses e skills identificados)
 - "observacoes_gerais_sobre_interacao": string (sua análise geral sobre o engajamento do aluno durante a conversa, seu nível de clareza sobre seus objetivos, e quaisquer pontos de atenção ou destaque para um orientador de carreira)
 
 
@@ -187,10 +189,7 @@ if __name__ == '__main__':
         print(f"Usando modelo: {MODEL_NAME} em {LOCATION} para o projeto {PROJECT_ID}")
         print("Digite 'sair', 'finalizar' ou 'resumir' para encerrar e gerar o prontuário.")
         
-        saudacao_inicial = "Olá! Sou o GuIA Carreiras IBMEC. Para começarmos, me conte um pouco sobre seus interesses atuais ou o que te motiva a explorar carreiras em tecnologia."
-        # Histórico simples: lista de dicionários com 'parts' como lista de strings
-        log_simples_teste = [{"role": "model", "parts": [saudacao_inicial]}]
-        print(f"GuIA: {saudacao_inicial}")
+        
 
         turn_count = 0
         max_turns_before_summary_prompt = 5 # Exemplo: sugerir resumo após 5 turnos do usuário
@@ -213,26 +212,7 @@ if __name__ == '__main__':
             bot_resp, log_simples_teste = conversar_com_gemini(log_simples_teste, user_input)
             print(f"GuIA: {bot_resp}")
 
-            # Verifica se o bot indicou que está pronto para resumir ou se atingiu o número de turnos
-            if "gostaria de ver um resumo agora?" in bot_resp.lower() or turn_count >= max_turns_before_summary_prompt:
-                if not ("gostaria de ver um resumo agora?" in bot_resp.lower()): # Se foi por contagem de turnos
-                    print("GuIA: Já conversamos bastante! Gostaria de ver um resumo agora?")
-                    log_simples_teste.append({"role": "model", "parts": ["Já conversamos bastante! Gostaria de ver um resumo agora?"]})
-
-
-                confirmacao = input("Você (digite 'sim' para gerar o perfil, ou qualquer outra coisa para continuar): ").strip().lower()
-                log_simples_teste.append({"role": "user", "parts": [confirmacao]})
-                if confirmacao == 'sim':
-                    msg_confirmacao_bot = "Ótimo! Preparando seu resumo..."
-                    print(f"GuIA: {msg_confirmacao_bot}")
-                    log_simples_teste.append({"role": "model", "parts": [msg_confirmacao_bot]})
-                    break 
-                else:
-                    msg_continuar_conversa = "Sem problemas! Sobre o que mais gostaria de conversar?"
-                    print(f"GuIA: {msg_continuar_conversa}")
-                    log_simples_teste.append({"role": "model", "parts": [msg_continuar_conversa]})
-                    turn_count = 0 # Reseta a contagem de turnos para continuar a conversa
-
+            
         print("\n--- Gerando Prontuário (com histórico simples) ---")
         json_prontuario = gerar_prontuario_com_gemini(log_simples_teste)
         

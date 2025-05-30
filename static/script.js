@@ -73,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     async function handleApiChatMessage(text) {
-        addMessage(text, 'user'); // Mostra a mensagem do usuário que está sendo enviada para a API
         setChatInputDisabled(true);
 
         try {
@@ -123,7 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!userInputField || userInputField.disabled) return;
         const text = userInputField.value.trim();
         if (text === '') return;
-        
+
+        addMessage(text, 'user'); 
+
         userInputField.value = ''; 
         
         if(esperandoConfirmacaoResumo){

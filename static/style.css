@@ -1,0 +1,152 @@
+/* static/style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura total da viewport */
+    margin: 0;
+    padding: 10px; /* Adiciona um pequeno preenchimento para evitar que o chat cole nas bordas em telas pequenas */
+    box-sizing: border-box; /* Garante que padding não aumente o tamanho total */
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 500px; /* Largura máxima do chat */
+    height: 90vh; /* Altura do container do chat */
+    max-height: 700px; /* Altura máxima */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column; /* Organiza os elementos filhos em coluna */
+    overflow: hidden; /* Esconde qualquer conteúdo que transborde */
+}
+
+.chat-header {
+    background-color: #003366; /* Azul IBMEC (exemplo) */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.chat-messages {
+    flex-grow: 1; /* Faz esta área crescer para ocupar o espaço disponível */
+    padding: 15px;
+    overflow-y: auto; /* Adiciona barra de rolagem vertical se necessário */
+    display: flex;
+    flex-direction: column; /* Mensagens empilhadas verticalmente */
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 75%; /* Largura máxima da mensagem */
+    line-height: 1.4;
+}
+
+.bot-message {
+    background-color: #e9e9eb; /* Cinza claro para o bot */
+    color: #333;
+    align-self: flex-start; /* Alinha à esquerda */
+    border-bottom-left-radius: 4px; /* Para dar forma de balão */
+}
+
+.user-message {
+    background-color: #007bff; /* Azul para o usuário */
+    color: white;
+    align-self: flex-end; /* Alinha à direita */
+    border-bottom-right-radius: 4px; /* Para dar forma de balão */
+}
+
+.message p {
+    margin: 0;
+}
+
+.chat-input-area {
+    display: flex; /* Alinha input e botão na mesma linha */
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.chat-input-area input[type="text"] {
+    flex-grow: 1; /* Input ocupa o espaço restante */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-right: 10px;
+    outline: none; /* Remove a borda de foco padrão */
+}
+
+.chat-input-area input[type="text"]:focus {
+    border-color: #007bff; /* Muda a cor da borda ao focar */
+}
+
+.chat-input-area button {
+    padding: 10px 20px;
+    background-color: #003366; /* Azul IBMEC (exemplo) */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.chat-input-area button:hover {
+    background-color: #005599; /* Azul mais escuro no hover */
+}
+
+/* Estilos para responsividade básica */
+@media (max-width: 600px) {
+    .chat-container {
+        height: 100vh; /* Ocupa toda a altura em telas pequenas */
+        max-height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .chat-input-area {
+        padding: 10px;
+    }
+    .chat-input-area input[type="text"] {
+        padding: 8px;
+    }
+    .chat-input-area button {
+        padding: 8px 15px;
+    }
+}
+/* Adicionar ao final de static/style.css */
+
+.chat-input-area .option-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-grow: 1; /* Para que os botões possam se expandir um pouco */
+    text-align: center;
+}
+
+.chat-input-area .option-button:hover {
+    background-color: #0056b3;
+}
+
+/* Se houver muitos botões, permitir quebra de linha */
+#inputControls {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os botões quebrem para a próxima linha */
+    justify-content: center; /* Centraliza os botões se houver espaço */
+    align-items: center;
+    padding: 10px; /* Adiciona um pouco de padding à área de controle */
+}

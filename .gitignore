@@ -1,0 +1,31 @@
+# Ambiente Virtual Python
+venv/
+*/venv/
+.*/venv/
+
+# Arquivos de cache e compilados do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivo de variáveis de ambiente local (CRUCIAL!)
+.env
+
+# Arquivos de chave JSON de Contas de Serviço Google Cloud
+# Se você colocar o arquivo .json DENTRO da pasta do projeto (NÃO RECOMENDADO PARA REPOS PÚBLICOS),
+# adicione o NOME EXATO do arquivo aqui. Ex:
+# eng-district-461405-t8-d797d2c90811.json
+# A MELHOR PRÁTICA é manter o arquivo .json FORA da pasta do projeto,
+# e o .env (que já está no .gitignore) aponta para o caminho dele.
+
+# Banco de Dados SQLite local
+*.db
+*.sqlite
+*.sqlite3
+
+# Arquivos de Sistema Operacional e IDEs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

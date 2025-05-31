@@ -142,6 +142,7 @@ Inclua os seguintes campos:
     - "cargo_desejado_mencionado": string (nome do cargo ou tipo de papel que o aluno mencionou desejar)
     - "outros_objetivos_claros_mencionados": string (quaisquer outros objetivos de carreira específicos e claros que o aluno verbalizou)
 - "soft_skills_identificadas_com_evidencia": array de objetos, onde cada objeto tem os campos {"skill": "nome_da_skill_identificada_pela_IA", "evidencia": "uma frase ou breve resumo da parte da conversa que indica essa skill"}
+- "soft_skills_que estao faltando para a area": array de objetos, onde cada objeto tem os campos {"skill": "nome_da_skill_identificada_pela_IA", "evidencia": "uma frase ou breve resumo da parte da conversa que indica essa falta de skill necessaria"}
 - "hard_skills_mencionadas_ou_desejadas": array de strings (tecnologias específicas, ferramentas, linguagens de programação ou áreas de conhecimento técnico que o aluno mencionou conhecer, ter interesse em aprender, ou que foram inferidas como relevantes)
 - "areas_de_potencial_desenvolvimento_sugeridas": string (sugestões concisas de áreas ou habilidades que o aluno poderia focar para desenvolvimento futuro e cite empresas que trabalham com isso , baseado na conversa e nos seus interesses/objetivos)
 - "sugestoes_de_carreira_inicial_exploratoria": array de strings (2-3 sugestões de tipos de carreira ou áreas de atuação para o aluno pesquisar mais e empresas que trabalham com isso, alinhadas com os interesses e skills identificados)
@@ -211,26 +212,7 @@ if __name__ == '__main__':
             bot_resp, log_simples_teste = conversar_com_gemini(log_simples_teste, user_input)
             print(f"GuIA: {bot_resp}")
 
-            # Verifica se o bot indicou que está pronto para resumir ou se atingiu o número de turnos
-            if "gostaria de ver um resumo agora?" in bot_resp.lower() or turn_count >= max_turns_before_summary_prompt:
-                if not ("gostaria de ver um resumo agora?" in bot_resp.lower()): # Se foi por contagem de turnos
-                    print("GuIA: Já conversamos bastante! Gostaria de ver um resumo agora?")
-                    log_simples_teste.append({"role": "model", "parts": ["Já conversamos bastante! Gostaria de ver um resumo agora?"]})
-
-
-                confirmacao = input("Você (digite 'sim' para gerar o perfil, ou qualquer outra coisa para continuar): ").strip().lower()
-                log_simples_teste.append({"role": "user", "parts": [confirmacao]})
-                if confirmacao == 'sim':
-                    msg_confirmacao_bot = "Ótimo! Preparando seu resumo..."
-                    print(f"GuIA: {msg_confirmacao_bot}")
-                    log_simples_teste.append({"role": "model", "parts": [msg_confirmacao_bot]})
-                    break 
-                else:
-                    msg_continuar_conversa = "Sem problemas! Sobre o que mais gostaria de conversar?"
-                    print(f"GuIA: {msg_continuar_conversa}")
-                    log_simples_teste.append({"role": "model", "parts": [msg_continuar_conversa]})
-                    turn_count = 0 # Reseta a contagem de turnos para continuar a conversa
-
+            
         print("\n--- Gerando Prontuário (com histórico simples) ---")
         json_prontuario = gerar_prontuario_com_gemini(log_simples_teste)
         

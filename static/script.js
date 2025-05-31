@@ -4,15 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputControls = document.getElementById('inputControls');
     let esperandoConfirmacaoResumo = false; // Controla se o app está aguardando a confirmação Sim/Não para gerar o resumo.
 
-    function addMessage(messageText, sender) {
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message', sender === 'bot' ? 'bot-message' : 'user-message');
-        const paragraphElement = document.createElement('p');
-        paragraphElement.innerHTML = messageText.replace(/\n/g, '<br>'); // Permite quebras de linha do Gemini
-        messageElement.appendChild(paragraphElement);
-        chatMessages.appendChild(messageElement);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+ function addMessage(messageText, sender) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', sender === 'bot' ? 'bot-message' : 'user-message');
+
+    if (sender === 'bot') {
+        const avatar = document.createElement('img');
+        avatar.src = '/static/img/aline.png'; // Coloque o caminho correto da imagem
+        avatar.alt = 'Aline Avatar';
+        avatar.classList.add('avatar');
+        messageElement.appendChild(avatar);
     }
+
+    const paragraphElement = document.createElement('p');
+    paragraphElement.innerHTML = messageText.replace(/\n/g, '<br>');
+    messageElement.appendChild(paragraphElement);
+    chatMessages.appendChild(messageElement);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
 
     function renderTextInput(placeholder = 'Digite sua resposta aqui...') {
         inputControls.innerHTML = ''; 
@@ -68,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         buttonContainer.appendChild(yesButton);
-        buttonContainer.appendChild(noButton);
         inputControls.appendChild(buttonContainer);
     }
     

@@ -72,7 +72,8 @@ def start_session():
     session['session_id'] = uuid.uuid4().hex
     
     # Mensagem inicial do bot (pode ser customizada ou até gerada por uma chamada inicial ao Gemini se desejado)
-    saudacao_inicial_bot = "Olá! Sou o GuIA Carreiras IBMEC. Para começarmos, me conte seu curso e periodo"
+estilo2
+    saudacao_inicial_bot = "Olá! Seja bem vindo ao CarreirAi. Meu nome é Aline, e vou conduzir a nossa conversa! Para começarmos, me conte seu curso e qual perido você esta."
     
     # Histórico na sessão Flask armazena 'parts' como lista de strings
     session['conversation_history'] = [{"role": "model", "parts": [saudacao_inicial_bot]}]

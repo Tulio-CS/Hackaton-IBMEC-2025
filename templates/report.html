@@ -3,24 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seu Perfil GuIA Carreiras IBMEC</title>
+    <title>Seu Perfil CarreirAI</title>
     <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background-color: #f4f4f4; color: #333; }
-        .report-container { max-width: 800px; margin: 20px auto; background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .report-container { max-width: 800px; margin: 20px auto; background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    }
         .report-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
         .report-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         h1, h2, h3 { color: #003366; /* Azul IBMEC */ }
         h1 { text-align: center; margin-bottom: 30px; }
-        h2 { border-bottom: 2px solid #005599; padding-bottom: 5px; margin-top: 0; }
-        .student-report h2 { color: #007bff; border-bottom-color: #007bff;}
-        .advisor-report h2 { color: #5a6268; border-bottom-color: #5a6268;}
+        h2 { border-bottom: 2px solid #032859; padding-bottom: 5px; margin-top: 0; }
+        .student-report h2 { color: #032859; border-bottom-color: #5a6268;}
+        .advisor-report h2 { color: #032859; border-bottom-color: #5a6268;}
         strong { color: #003366; }
         ul { list-style-type: disc; margin-left: 20px; padding-left: 0; }
         li { margin-bottom: 8px; }
         .evidence { font-style: italic; color: #555; margin-left: 15px; font-size: 0.9em;}
         .print-note { text-align: center; font-size: 0.85em; color: #777; margin-top: 30px; padding: 10px; background-color: #eef; border-radius: 4px;}
-        .cta-button { display: inline-block; background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 15px; text-align: center; }
-        .cta-button:hover { background-color: #218838; }
+        .cta-button { display: inline-block; background-color: #F29F05; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 15px; text-align: center; }
+        .cta-button:hover { background-color: #c88304; }
+        .header-avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            /* border: 1px solid #032859; */
+        }
+
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
         @media print {
             body { background-color: #fff; padding: 0; margin: 10mm; }
             .report-container { box-shadow: none; margin: 0; max-width: 100%; border: 1px solid #ccc; }
@@ -32,7 +55,10 @@
 </head>
 <body>
     <div class="report-container">
-        <h1>GuIA Carreiras IBMEC - Seu Perfil Detalhado</h1>
+        <div class="header-flex">
+            <img src="/static/img/aline.png" alt="" class="avatar">
+            <h1>Seu Perfil CarreirAI</h1>
+        </div>
 
         <div class="report-section student-report">
             <h2>🚀 Sua Jornada de Autoconhecimento Tech</h2>
@@ -43,6 +69,9 @@
             {% endif %}
 
             
+ estilo2
+
+
             {% if profile.sugestoes_de_carreira_inicial_exploratoria and profile.sugestoes_de_carreira_inicial_exploratoria|length > 0 %}
                 <h3>Sugestões de Carreiras Iniciais para Explorar (dadas pela IA):</h3>
                 <ul>
@@ -60,7 +89,7 @@
                 <strong>Próximo passo:</strong> Este é um ótimo ponto de partida! Que tal agendar uma conversa com a equipe de Carreiras do IBMEC para discutir esses insights e planejar seus próximos passos?
             </p>
             <div style="text-align:center; margin-top:15px;">
-                <a href="#" class="cta-button">Agendar com Carreiras (Link Fictício)</a>
+                <a href="#" class="cta-button">Agendar com Carreiras</a>
             </div>
         </div>
 

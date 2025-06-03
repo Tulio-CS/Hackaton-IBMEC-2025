@@ -132,7 +132,6 @@ O comportamento do chatbot e a qualidade do perfil gerado são fortemente influe
 * **`SYSTEM_INSTRUCTION_JSON_GENERATOR`:** Instrui o modelo a gerar o perfil final estritamente no formato JSON especificado. Alterar os campos ou descrições aqui muda a estrutura do "prontuário do aluno".
 * **Engenharia de Prompt:** Melhorar esses prompts é um processo iterativo. Teste diferentes formulações para otimizar a qualidade das interações e do perfil gerado.
 
-O arquivo `questions.json` do MVP anterior não é mais usado para o fluxo principal de perguntas, que agora é dinâmico.
 
 ## Principais Arquivos do Projeto
 
@@ -144,14 +143,7 @@ O arquivo `questions.json` do MVP anterior não é mais usado para o fluxo princ
 * **`templates/report.html`**: Página que exibe o perfil gerado pela IA.
 * **`requirements.txt`**: Dependências Python.
 
-## Contribuição
 
-* Para novas ideias ou grandes mudanças, discuta com o grupo.
-* Use branches do Git para desenvolvimento (`git checkout -b sua-feature`).
-* Faça commits claros e descritivos.
-* Teste suas alterações.
-* Abra Pull Requests para revisão.
-* Mantenha a documentação (este README) atualizada.
 
 ## Próximos Passos / Melhorias Futuras
 

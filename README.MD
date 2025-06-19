@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto
 
-O "MentorIA Carreiras IBMEC" é um aplicativo web inovador que utiliza Inteligência Artificial (Vertex AI Gemini do Google Cloud) para auxiliar alunos dos primeiros períodos dos cursos de Engenharia de Software, Engenharia de Computação e Ciência de Dados do IBMEC a explorarem suas afinidades com diferentes carreiras na área de tecnologia. Através de um chatbot dinâmico e conversacional, a aplicação busca entender os interesses e soft skills do aluno, gerando ao final um "prontuário" personalizado com insights e sugestões de carreira. Este prontuário é útil tanto para o aluno quanto para a equipe de Carreiras do IBMEC.
+O " CarreirAI" é um aplicativo web inovador que utiliza Inteligência Artificial (Vertex AI Gemini do Google Cloud) para auxiliar alunos dos primeiros períodos dos cursos de Engenharia de Software, Engenharia de Computação e Ciência de Dados do IBMEC a explorarem suas afinidades com diferentes carreiras na área de tecnologia. Através de um chatbot dinâmico e conversacional, a aplicação busca entender os interesses e soft skills do aluno, gerando ao final um "prontuário" personalizado com insights e sugestões de carreira. Este prontuário é útil tanto para o aluno quanto para a equipe de Carreiras do IBMEC.
 
 ## Índice
 

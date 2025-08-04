@@ -84,7 +84,7 @@ def conversar_com_openai(conversation_log_simples: list, nova_mensagem_aluno_tex
             temperature=0.75,
             max_tokens=800,
         )
-        resposta_modelo_texto = response.choices[0].message["content"]
+        resposta_modelo_texto = response.choices[0].message.content
         conversation_log_simples.append({"role": "user", "parts": [nova_mensagem_aluno_texto]})
         conversation_log_simples.append({"role": "model", "parts": [resposta_modelo_texto]})
         return resposta_modelo_texto, conversation_log_simples
@@ -135,7 +135,7 @@ Inclua os seguintes campos:
             temperature=0.1,
             max_tokens=2048,
         )
-        resposta_json_texto = response.choices[0].message["content"]
+        resposta_json_texto = response.choices[0].message.content
         return resposta_json_texto.strip()
     except Exception as e:
         print(f"Erro ao gerar prontuário JSON com o OpenAI: {e}")

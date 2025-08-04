@@ -1,4 +1,4 @@
-# app.py (Versão Enxuta com Integração Vertex AI)
+# app.py (Versão Enxuta com Integração OpenAI)
 import sqlite3
 import uuid
 import json
@@ -9,16 +9,16 @@ from dotenv import load_dotenv # Para carregar o .env
 # Carrega variáveis de ambiente do arquivo .env no início
 load_dotenv()
 
-# Importa as funções do nosso cliente Gemini
+# Importa as funções do nosso cliente OpenAI
 try:
-    from gemini_client import conversar_com_gemini, gerar_prontuario_com_gemini, main_model as gemini_model
-    if not gemini_model: 
-        print("AVISO em app.py: Modelo Gemini não foi carregado pelo gemini_client. Funcionalidades de IA podem estar desabilitadas.")
+    from openai_client import conversar_com_openai, gerar_prontuario_com_openai, client as openai_client
+    if not openai_client:
+        print("AVISO em app.py: Cliente OpenAI não foi carregado pelo openai_client. Funcionalidades de IA podem estar desabilitadas.")
 except ImportError:
-    print("ERRO CRÍTICO em app.py: Não foi possível importar gemini_client.py. Funcionalidades de IA estarão desabilitadas.")
-    conversar_com_gemini = None
-    gerar_prontuario_com_gemini = None
-    gemini_model = None
+    print("ERRO CRÍTICO em app.py: Não foi possível importar openai_client.py. Funcionalidades de IA estarão desabilitadas.")
+    conversar_com_openai = None
+    gerar_prontuario_com_openai = None
+    openai_client = None
 
 app = Flask(__name__)
 # Carrega a Chave Secreta do Flask de uma variável de ambiente
@@ -65,13 +65,13 @@ def index():
 
 @app.route('/api/start_session', methods=['GET'])
 def start_session():
-    if not gemini_model or not conversar_com_gemini:
+    if not openai_client or not conversar_com_openai:
         return jsonify({"error": "Desculpe, o serviço de IA está temporariamente indisponível."}), 503
 
     session.clear() # Limpa qualquer sessão anterior
     session['session_id'] = uuid.uuid4().hex
     
-    # Mensagem inicial do bot (pode ser customizada ou até gerada por uma chamada inicial ao Gemini se desejado)
+    # Mensagem inicial do bot (pode ser customizada ou até gerada por uma chamada inicial ao OpenAI se desejado)
 
     saudacao_inicial_bot = "Olá! Seja bem vindo ao CarreirAi. Meu nome é Aline, e vou conduzir a nossa conversa! Para começarmos, me conte seu curso e qual perido você esta."
     
@@ -84,7 +84,7 @@ def start_session():
 
 @app.route('/api/chat', methods=['POST'])
 def handle_chat():
-    if not gemini_model or not conversar_com_gemini:
+    if not openai_client or not conversar_com_openai:
         return jsonify({"error": "Serviço de IA indisponível no momento."}), 503
 
     data = request.get_json()
@@ -104,14 +104,14 @@ def handle_chat():
 
     current_simple_history = session.get('conversation_history', [])
     
-    # gemini_client.conversar_com_gemini aceita e retorna o histórico no formato simples
-    bot_response_text, updated_simple_history = conversar_com_gemini(current_simple_history, user_message)
+    # openai_client.conversar_com_openai aceita e retorna o histórico no formato simples
+    bot_response_text, updated_simple_history = conversar_com_openai(current_simple_history, user_message)
     
     session['conversation_history'] = updated_simple_history
     session.modified = True
 
     # Verifica se o bot indicou que está pronto para gerar o prontuário
-    # (conforme instruído no system_prompt do gemini_client)
+    # (conforme instruído no system_prompt do openai_client)
     trigger_phrase_resumo = "gostaria de ver um resumo agora?" # Mantenha esta frase EXATA e em minúsculas
     if trigger_phrase_resumo in bot_response_text.lower():
         return jsonify({
@@ -123,7 +123,7 @@ def handle_chat():
 
 @app.route('/api/generate_profile', methods=['POST'])
 def generate_profile_route():
-    if not gemini_model or not gerar_prontuario_com_gemini:
+    if not openai_client or not gerar_prontuario_com_openai:
         return jsonify({"error": "Serviço de IA indisponível para gerar perfil."}), 503
 
     if 'session_id' not in session or not session.get('conversation_history'):
@@ -139,7 +139,7 @@ def generate_profile_route():
 
     print(f"Histórico SIMPLES para geração de prontuário (sessão {session['session_id']}): {current_simple_history[-3:] if len(current_simple_history) > 2 else current_simple_history}")
 
-    prontuario_json_text = gerar_prontuario_com_gemini(current_simple_history)
+    prontuario_json_text = gerar_prontuario_com_openai(current_simple_history)
     
     cleaned_json_text = prontuario_json_text
     if cleaned_json_text.strip().startswith("```json"):
@@ -152,11 +152,11 @@ def generate_profile_route():
     try:
         profile_result = json.loads(cleaned_json_text)
         if isinstance(profile_result, dict) and "error" in profile_result: 
-            print(f"Erro retornado pelo Gemini na geração do prontuário: {profile_result['error']}")
+            print(f"Erro retornado pelo OpenAI na geração do prontuário: {profile_result['error']}")
             return jsonify({"error": f"IA reportou um erro na geração do perfil: {profile_result['error']}" }), 500
     except json.JSONDecodeError as e:
-        print(f"ERRO CRÍTICO: Gemini não retornou um JSON válido mesmo após limpeza: '{cleaned_json_text}'. Erro de parse: {e}")
-        print(f"Texto original do Gemini (antes da limpeza): '{prontuario_json_text}'")
+        print(f"ERRO CRÍTICO: OpenAI não retornou um JSON válido mesmo após limpeza: '{cleaned_json_text}'. Erro de parse: {e}")
+        print(f"Texto original do OpenAI (antes da limpeza): '{prontuario_json_text}'")
         return jsonify({"error": "Falha ao processar o perfil gerado pela IA (formato inválido)."}), 500
 
     session['profile_analysis_result'] = profile_result 
@@ -190,7 +190,7 @@ def report():
     if not profile_data:
         return "Resultado da análise não encontrado. Por favor, complete o questionário primeiro. <a href='/'>Voltar ao início</a>"
     
-    # O template 'report.html' precisa ser adaptado para ler as chaves do JSON gerado pelo Gemini.
+    # O template 'report.html' precisa ser adaptado para ler as chaves do JSON gerado pelo OpenAI.
     # Exemplo: profile.interesses_principais, profile.soft_skills_identificadas_com_evidencia, etc.
     return render_template('report.html', profile=profile_data)
 

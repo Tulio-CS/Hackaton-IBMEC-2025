@@ -194,6 +194,12 @@ def report():
     # Exemplo: profile.interesses_principais, profile.soft_skills_identificadas_com_evidencia, etc.
     return render_template('report.html', profile=profile_data)
 
+# Inicializa o banco de dados ao carregar o aplicativo
+init_db()
+
 if __name__ == '__main__':
-    init_db() # Garante que a tabela student_ai_profiles seja criada/verificada.
-    app.run(debug=True, port=5000)
+    app.run(
+        debug=os.environ.get("FLASK_DEBUG", "").lower() == "true",
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+    )

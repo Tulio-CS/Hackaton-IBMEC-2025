@@ -106,6 +106,13 @@ Antes de rodar o projeto localmente, você precisa obter uma chave de API da Ope
     ```
 3.  Acesse `http://127.0.0.1:5000/` no seu navegador.
 
+## Deploy no Railway
+
+1. Crie uma conta em [Railway](https://railway.app/) e conecte este repositório no painel web ou via [Railway CLI](https://docs.railway.app/reference/cli).
+2. Ao criar o serviço, o Railway instalará automaticamente as dependências de `requirements.txt` e usará o `Procfile` para iniciar o servidor com `gunicorn`.
+3. Defina as variáveis de ambiente necessárias no projeto (`OPENAI_API_KEY` e `FLASK_SECRET_KEY`). O Railway fornecerá automaticamente a variável `PORT`.
+4. Inicie o deploy; após a conclusão, a aplicação estará disponível na URL gerada pelo Railway.
+
 ## Como Usar a Aplicação
 
 1.  Acesse a URL no navegador.
